@@ -7,6 +7,10 @@ import 'package:gskedu/Pages/loginandregister.dart';
 import 'profile.dart';
 
 class HomePages extends StatefulWidget {
+
+  final int parentId;
+
+  const HomePages({Key key, this.parentId}) : super(key: key);
   @override
   _HomePagesState createState() => _HomePagesState();
 }
@@ -16,7 +20,7 @@ class _HomePagesState extends State<HomePages> {
   Widget GetPage(int currentIndex) {
     switch (currentIndex) {
       case 0:
-        return Home();
+        return Home(parentId2: widget.parentId,);
       case 1:
         return Profile();
       case 2:

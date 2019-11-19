@@ -17,6 +17,10 @@ import 'package:gskedu/myDbFunction.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 class ParentLogin extends StatefulWidget {
+
+   
+  
+
   @override
   _ParentLoginState createState() => _ParentLoginState();
 }
@@ -27,33 +31,27 @@ class _ParentLoginState extends State<ParentLogin> {
   final nameController = TextEditingController();
   final passwordController = TextEditingController();
 
-  
-  // var db = connectionDb;
-  // var model = "hr.employee";
-  // List<int> ids = [28];
-  // List domain = [['name','=','ghanem']];
-  // Map values = {'name':'${nameController.text}'};
-  // List<String> fields = ['name','department_id'];
-  // ++++++++++++++++++++++++++++++++++++++++ Functions +++++++++++++++++++++++++++++++++++++++++
   Future login(String name, String password) async {
-    SharedPreferences prefs = await SharedPreferences.getInstance();
+    // SharedPreferences prefs = await SharedPreferences.getInstance();
 
     AuthenticateCallback aut = await odooAuthenticate(name, password);
     if (aut.isSuccess) {
       var uId = aut.getUser().partnerId;
       
-      var model = 'res.partner';
-      var domain = [['id','=','${uId}']];
-      var fields = ['phone','email','lang','street','child_ids'];
-      var userInfo = await odooSearchRead(model, domain, fields);
+      // var model = 'res.partner';
+      // var domain = [['id','=','${uId}']];
+      // var fields = ['phone','email','lang','street','child_ids'];
+      // var userInfo = await odooSearchRead(model, domain, fields);
+      // var userChieldIds = userInfo['records'][0]['child_ids'];
+      
 
-      print(userInfo['records']);
+      // print(userInfo['records']);
 
-      var childID = userInfo['records'][0]['child_ids'][0];
-      var fields2 = ['name','title'];
-      var childInfo = await odooSearchRead(model, [['id','=','${childID}']],fields2 );
+      // var childID = userInfo['records'][0]['child_ids'][0];
+      // var fields2 = ['name','title'];
+      // var childInfo = await odooSearchRead(model, [['id','=','${childID}']],fields2 );
 
-      print(childInfo['recordscd']);
+      // print(childInfo['recordscdclear']);
 
 
       // if (userInfo) {
@@ -64,11 +62,11 @@ class _ParentLoginState extends State<ParentLogin> {
       // prefs.setInt("userId", aut.getUser().partnerId);
       
 
-      // Navigator.push(
-      //     context,
-      //     MaterialPageRoute(
-      //       builder: (context) => HomePages(),
-      //     ));
+      Navigator.push(
+          context,
+          MaterialPageRoute(
+            builder: (context) => HomePages(parentId: uId,),
+          ));
     } else {
       alertMessage(
           context, "خطاء !", "تأكد من اسم المستخدم او كلمه المرور ", "موافق");
